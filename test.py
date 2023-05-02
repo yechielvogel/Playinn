@@ -95,3 +95,5 @@ game_alg()
                         #     x = len(file.readlines())
                         #     if x < 10:
                         #         print("works")
+
+print("hello")                        
