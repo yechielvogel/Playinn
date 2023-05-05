@@ -76,23 +76,37 @@ def Home():
     f = open(f'/Users/macbookpro/Playinn/{usen}.py')
     lines = f.readlines()
     print("Hello " + lines[3][1:100])
-    print("Account: " + "Profile: " + "Settings: " + "Avalible: " + "Log Out:" + "\n")
-    AvalibleAlg()
+    print("Settings: " + "Your games" + "Create game: " + "Log Out:" + "\n")
+    game_alg()
     selection = input("").strip().title()
-    if selection == "Account":
-        Account()
-    elif selection == "Profile":
-        Profile()
+    if selection == "Your games":
+        #your_games()
+        print('this has not been built yet please come back soon')
     elif selection == "Settings":
         Settings()
     elif selection == "Logout":
         Log_Out()
-    elif selection == "Avalible":
-        Avalible()
+    elif selection == "create game":
+        open_game()
     else:
         print('Sorry I didnt get that please try again.') 
               
 # clean out all none functional functions
+
+def your_games():
+    import os
+    directory = '/Users/macbookpro/Playinn/open_games'
+    for filename in os.listdir('/Users/macbookpro/Playinn/open_games'):
+        with open(os.path.join(directory, filename), 'r') as file, open(os.path.join(directory, filename), 'r') as file2:
+            yourgames = file.read()
+            if usen in yourgames:
+                yourgames1 = file2.readlines()
+                print(yourgames1[1][1:100])
+                # add option to be able to see who else is in the game.
+                # try open file3 readlines print lines 5 till 15 if there is
+                # also add be able to see games you created 
+            else:
+                print('you are not in any games')
 
 def Account(): 
     print("This page has not been built yet please come back soon\n")
@@ -195,10 +209,10 @@ def No_One_Online():
 
 def open_game():
     game_name = ("#") + input("Choose a name ")
-    game_date = input("Choose a date ")
+    game_date = input("date YYY/MM/DD ")
     game_time = input("Choose a time ")
     game_area = input("Choose a area ")
-#    players = usen
+    players = usen
     file_name = game_name
     with open(f'/Users/macbookpro/Playinn/open_games/{file_name}.py','w', encoding='utf-8') as f:
         f.write(f'#...................' + '\n')
@@ -206,41 +220,43 @@ def open_game():
         f.write(f'#{game_date}' + '\n')
         f.write(f'#{game_time}' + '\n')
         f.write(f'#{game_area}' + '\n')
-#       f.write(f'#{players}' + '\n')
+        f.write(f'#{players}' + '\n')
 
 # fix: when you enter the game it should write your username in the last line of the file.
-# add: alg that only desplayes games happening today, eventually it should know what day is is.
+
 def game_alg():
     today = "thursday"
     import os 
+    from datetime import date 
+    today = date.today()
+    todaystr = str(today)
     directory = '/Users/macbookpro/Playinn/open_games'
-    #search_word = today
     f = open(f'/Users/macbookpro/Playinn/{usen}.py', 'r+')
     line = f.readlines()
     address1 = line[7]
     for filename in os.listdir('/Users/macbookpro/Playinn/open_games'):
         if filename.endswith('.py'):
             with open(os.path.join(directory, filename), 'r') as file,  open(os.path.join(directory, filename), 'r') as file2, open(os.path.join(directory, filename), 'r') as file3:
-                #first_line = file2.readline().strip()
-                line2 = file.readlines()
-                address2 = line2[4]
-                if address1 == address2:
-                    lines = file2.readlines()
-                    line3 = file3.readlines()
-                    print("Type the game name to enter\n")
-                    print(lines[0][2:100] + '\n' 'game at ' + line3[3][1:100] + '\n')
-                    for filename in os.listdir('/Users/macbookpro/Playinn/open_games'):
-                        enter_game = '#' + input("") + '.py'
-                        if enter_game in filename:
-                            with open(f'/Users/macbookpro/Playinn/open_games/{enter_game}','r+', encoding='utf-8') as f:
-                                # check if the file has 10 username writen if yes print full if not continue.
-                               f.write(f'#{usen}' + '\n') 
-                               
-                               print("you are now in the game")
+                with open(os.path.join(directory, filename), 'r') as file5, open(os.path.join(directory, filename), 'r') as file6:
+                    rgameline = file6.readlines()
+                    date_in_file = rgameline[2][1:11]
+                    for line in file5:
+                        x = len(file5.readlines())
+                        line2 = file.readlines()
+                        address2 = line2[4]
+                        if address1 == address2 and x < 10 and date_in_file == todaystr:
+                            lines = file2.readlines()
+                            line3 = file3.readlines()
+                            print("Type the game name to join\n")
+                            print(lines[1][2:100] + '\n' 'game at ' + line3[3][1:100] + '\n')
+                            for filename in os.listdir('/Users/macbookpro/Playinn/open_games'):
+                                enter_game = '#' + input("") + '.py'
+                                if enter_game in filename:
+                                    with open(f'/Users/macbookpro/Playinn/open_games/{enter_game}','a', encoding='utf-8') as f:
+                                        # check if the file has 10 username writen if yes print full if not continue.
+                                        f.write(f'#{usen}' + '\n') 
+                                        print("you are now in the game")
+                                else:
+                                    print("no")    
                         else:
-                            print("no")    
-                else:
-                    print('There are no games in your area please check back soon')
-
-
-
+                            print('There are no games in your area please check back soon')

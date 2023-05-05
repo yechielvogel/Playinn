@@ -1,11 +1,10 @@
 #......................
-##thursday footy
-#thursday
-#nine
+#thursday footy
+#2023-05-04
+#Nine
 #NW119HH
 #@chanoch
 #@yechiel
 #@yechiel
-#@yechiel
+#players = ['@yechiel, @yanky']
 
-#@yechiel
